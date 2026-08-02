@@ -92,6 +92,10 @@ products cache, account filtering). Start it before those tests:
 mongod --dbpath /your/mongo/data/path
 ```
 
+Execution recording is **best-effort**: every finished test is bulk-inserted into
+the `executions` collection after the run; if MongoDB is unreachable the insert is
+silently skipped and the run is never failed.
+
 ---
 
 ## Configuration
@@ -104,6 +108,7 @@ All keys live in `src/main/resources/application.properties`:
 | `ui.base.url`              | `https://automationexercise.com/`    | Selenium start URL      |
 | `mongodb.connection.string`| `mongodb://localhost:27017`   | Mongo connection              |
 | `mongodb.database.name`    | `automation`                  | Mongo database                |
+| `execution.recording.enabled` | `true`                     | Persist executed cases into the `executions` collection |
 | `screenshot.dir`           | `assets/images`               | UI screenshots (PASS + FAIL)  |
 | `video.dir`                | `assets/videos`               | UI video (FAIL only)          |
 | `download.dir`             | `assets/files`                | Downloads                     |
@@ -247,7 +252,42 @@ public class TC02_Login_ValidTest extends BaseUITest {
 - Expected codes/messages from `data.expectations.Expectations.Http.*` /
   `Expectations.Ui.*`.
 - Mongo repositories in `data.mongo` store registered accounts, updated users, and
-  products.
+  products. All repository calls are best-effort — if MongoDB is down they log a
+  warning and return a safe default instead of failing the test.
+- Every executed test case is recorded in the `executions` collection
+  (see [Execution tracking](#execution-tracking)).
+
+---
+
+## Execution tracking
+
+After a suite finishes, the `TestListener` bulk-inserts one document per executed
+test into the `executions` collection of the `automation` database.
+
+Stored fields:
+
+| Field          | Meaning                                        |
+|----------------|------------------------------------------------|
+| `suite`        | TestNG suite name                              |
+| `class`        | Fully-qualified test class                     |
+| `test`         | Test method name                               |
+| `description`  | Allure / JFR `@Description` (method, then class) |
+| `epic`, `feature`, `story`, `severity` | Allure annotations          |
+| `status`       | `PASS`, `FAIL`, `SKIP`, or `SUCCESS_PERCENTAGE_FAILURE` |
+| `parameters`   | Test parameters as JSON                        |
+| `environment`  | `api.base.url` + `ui.base.url` as JSON         |
+| `startTime`, `endTime` | Epoch milliseconds                      |
+| `durationMs`   | Test duration                                 |
+| `errorMessage` | Failure message (null on success)              |
+| `stackTrace`   | First 20 lines of the stack trace              |
+
+Example query:
+
+```bash
+mongosh automation --eval 'db.executions.find({status:"FAIL"})'
+```
+
+Disable with `execution.recording.enabled = false` in `application.properties`.
 
 ---
 

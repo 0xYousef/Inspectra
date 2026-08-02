@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum COLLECTIONS {
     ACCOUNTS("accounts"),
     PRODUCTS("products"),
-    AUTH_HISTORY("auth-logs");
+    AUTH_HISTORY("auth-logs"),
+    EXECUTIONS("executions");
 
     private final String collection;
 
