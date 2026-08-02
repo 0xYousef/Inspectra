@@ -1,7 +1,7 @@
 package api.tests;
 
+import api.endpoints.account.VerifyLoginEndpoint;
 import data.DTO.Login;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import data.mongo.AuthRepository;
@@ -12,8 +12,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 import static data.expectations.Expectations.Http.OK;
-import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 
 public class FilterAccounts {
@@ -38,17 +36,7 @@ public class FilterAccounts {
     }
 
     private boolean isCorrect(Login login) {
-        Response response = given()
-                .contentType(ContentType.MULTIPART)
-                .multiPart("email", login.getEmail())
-                .multiPart("password", login.getPassword())
-                .when().post("https://automationexercise.com/api/verifyLogin")
-                .then()
-                .assertThat()
-                .body(matchesJsonSchemaInClasspath("schemas/login-response-schema.json"))
-                .statusCode(200)
-                .extract()
-                .response();
+        Response response = new VerifyLoginEndpoint().login(login);
         JsonPath res = response.jsonPath();
         return res.getInt("responseCode")== OK;
     }

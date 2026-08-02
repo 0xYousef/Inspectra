@@ -1,17 +1,14 @@
 package api.tests.product.search;
 
 import api.base.BaseAPIClient;
+import api.endpoints.product.SearchProductEndpoint;
 import io.qameta.allure.*;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import static data.expectations.Expectations.Http.*;
-import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.testng.Assert.assertEquals;
-import static core.utils.AllureUtils.attachJsonSchema;
 
 @Epic("PRODUCTS")
 @Feature("SEARCH ABOUT PRODUCTS")
@@ -21,17 +18,9 @@ public class SearchProduct_InvalidTest extends BaseAPIClient {
     @Severity(SeverityLevel.NORMAL)
     @Test(groups = {"API"})
     public void invalidSearchProduct() {
-        attachJsonSchema("/schemas/login-response-schema.json","Response Schema");
-        Response response = given()
-                .accept(ContentType.JSON)
-                .contentType(ContentType.JSON)
-                .when()
-                .post("/searchProduct")
-                .then()
-                .body(matchesJsonSchemaInClasspath("schemas/login-response-schema.json")).extract().response();
+        Response response = new SearchProductEndpoint().searchWithoutParam();
         JsonPath jsonPath = response.jsonPath();
         assertEquals(jsonPath.getInt("responseCode"), BAD_REQUEST);
         assertEquals(jsonPath.getString("message"), String.format(REQUIRED_REGISTER,"search_product"));
-
     }
 }

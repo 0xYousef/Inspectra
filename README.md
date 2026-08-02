@@ -135,6 +135,14 @@ Allure results are automatically cleaned and generated per module run.
 
 ---
 
+## 📐 Coding Standards
+
+New code must follow [`docs/CODING_STANDARDS.md`](docs/CODING_STANDARDS.md) —
+naming conventions, layering, test authoring rules, and the list of
+anti-patterns to avoid.
+
+---
+
 ## ⚙️ CPU & Network Throttling (CDP)
 
 Simulate slow CPUs and slow/unreliable connections in Chrome/Chromium sessions
