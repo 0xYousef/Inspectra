@@ -13,6 +13,7 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -69,6 +70,42 @@ public class ProductsRepository {
             log.info("Some products already exist. Only new products were inserted.");
         } catch (RuntimeException e) {
             ExceptionHandler.handleSilently(e, "saving products");
+        }
+    }
+
+    public List<String> getBrands() {
+        try {
+            List<String> brands = collection().distinct("brand", String.class)
+                    .into(new ArrayList<>());
+            log.info("Fetched {} brands from database", brands.size());
+            return brands;
+        } catch (RuntimeException e) {
+            ExceptionHandler.handleSilently(e, "fetching brands");
+            return List.of();
+        }
+    }
+
+    public List<String> getUserTypes() {
+        try {
+            List<String> userTypes = collection().distinct("userType", String.class)
+                    .into(new ArrayList<>());
+            log.info("Fetched {} user types from database", userTypes.size());
+            return userTypes;
+        } catch (RuntimeException e) {
+            ExceptionHandler.handleSilently(e, "fetching user types");
+            return List.of();
+        }
+    }
+
+    public List<String> getCategories() {
+        try {
+            List<String> categories = collection().distinct("category", String.class)
+                    .into(new ArrayList<>());
+            log.info("Fetched {} categories from database", categories.size());
+            return categories;
+        } catch (RuntimeException e) {
+            ExceptionHandler.handleSilently(e, "fetching categories");
+            return List.of();
         }
     }
 

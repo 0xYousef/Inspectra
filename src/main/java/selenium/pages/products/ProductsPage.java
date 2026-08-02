@@ -8,13 +8,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import selenium.pages.BasePage;
-import selenium.support.enums.BRAND;
-import selenium.support.enums.CATEGORY;
 
 public class ProductsPage extends BasePage {
 
-    private CATEGORY current_category = null;
-    private BRAND current_brand = null;
+    private String currentUserType = null;
+    private String currentCategory = null;
+    private String currentBrand = null;
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -60,37 +59,39 @@ public class ProductsPage extends BasePage {
         return this;
     }
 
-    @Step("Select product category: {category}")
-    public ProductsPage selectCategory(CATEGORY category) {
-        if (category == null) {
+    @Step("Select product category: {userType} > {category}")
+    public ProductsPage selectCategory(String userType, String category) {
+        if (userType == null || category == null) {
             log.warn("Provided category is null. Skipping category selection.");
             return this;
         }
-        this.current_category = category;
-        this.current_brand = null;
-        log.info("Selected category: {}", category);
+        this.currentUserType = userType;
+        this.currentCategory = category;
+        this.currentBrand = null;
+        log.info("Selected category: {} > {}", userType, category);
         return this;
     }
 
 
     @Step("Select product brand: {brand}")
-    public ProductsPage selectBrand(BRAND brand) {
+    public ProductsPage selectBrand(String brand) {
         if (brand == null) {
             log.warn("Provided brand is null. Skipping brand selection.");
             return this;
         }
-        this.current_brand = brand;
-        this.current_category = null;
+        this.currentBrand = brand;
+        this.currentUserType = null;
+        this.currentCategory = null;
         log.info("Selected brand: {}", brand);
         return this;
     }
 
     @Step("Verify active search label (category or brand)")
     public String verifyActiveSearch() {
-        if (current_category != null) {
-            return (current_category.getMainCategory()+ " > " + current_category).toLowerCase();
-        } else if (current_brand != null) {
-            return ("Brand > " + current_brand).toLowerCase();
+        if (currentUserType != null) {
+            return (currentUserType + " > " + currentCategory).toLowerCase();
+        } else if (currentBrand != null) {
+            return ("Brand > " + currentBrand).toLowerCase();
         } else {
             return "no active search by category or brand";
         }

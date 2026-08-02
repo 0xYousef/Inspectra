@@ -105,6 +105,7 @@ public class TestListener implements ISuiteListener, ITestListener {
                             ? ""
                             : result.getTestContext().getSuite().getName())
                     .className(result.getTestClass() == null ? "" : result.getTestClass().getName())
+                    .type(type(result))
                     .testName(result.getName())
                     .description(description(method, testClass))
                     .epic(annotationValue(method, testClass, Epic.class, a -> ((Epic) a).value()))
@@ -135,6 +136,30 @@ public class TestListener implements ISuiteListener, ITestListener {
         List<ExecutionRecord> records = new ArrayList<>(executions);
         executions.clear();
         new ExecutionRepository().insertExecutions(records);
+    }
+
+    private static String type(ITestResult result) {
+        String className = result.getTestClass() == null
+                ? ""
+                : result.getTestClass().getRealClass().getName();
+        if (className.startsWith("api.")) {
+            return "api";
+        }
+        if (className.startsWith("selenium.")) {
+            return "ui";
+        }
+        String suiteName = result.getTestContext() == null
+                || result.getTestContext().getSuite() == null
+                ? ""
+                : result.getTestContext().getSuite().getName();
+        String upper = suiteName.toUpperCase();
+        if (upper.contains("UI")) {
+            return "ui";
+        }
+        if (upper.contains("API")) {
+            return "api";
+        }
+        return "unknown";
     }
 
     private static String status(int status) {

@@ -8,6 +8,7 @@ import lombok.Data;
 public class ExecutionRecord {
     private String suiteName;
     private String className;
+    private String type;
     private String testName;
     private String description;
     private String epic;

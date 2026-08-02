@@ -8,6 +8,7 @@ public class ExecutionMapper {
         Document doc = new Document();
         doc.append("suite", record.getSuiteName())
                 .append("class", record.getClassName())
+                .append("type", record.getType())
                 .append("test", record.getTestName())
                 .append("description", record.getDescription())
                 .append("epic", record.getEpic())

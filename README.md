@@ -254,6 +254,10 @@ public class TC02_Login_ValidTest extends BaseUITest {
 - Mongo repositories in `data.mongo` store registered accounts, updated users, and
   products. All repository calls are best-effort — if MongoDB is down they log a
   warning and return a safe default instead of failing the test.
+- Product categories, sub-categories (usertype), and brands come from the
+  `products` collection (`ProductsRepository.getCategories()` / `getUserTypes()` /
+  `getBrands()`); the `ProductFilterProvider` data providers hand a random brand or
+  category to UI tests, replacing the former `BRAND` / `CATEGORY` enums.
 - Every executed test case is recorded in the `executions` collection
   (see [Execution tracking](#execution-tracking)).
 
@@ -270,6 +274,7 @@ Stored fields:
 |----------------|------------------------------------------------|
 | `suite`        | TestNG suite name                              |
 | `class`        | Fully-qualified test class                     |
+| `type`         | `api` (package `api.*`) or `ui` (package `selenium.*`) |
 | `test`         | Test method name                               |
 | `description`  | Allure / JFR `@Description` (method, then class) |
 | `epic`, `feature`, `story`, `severity` | Allure annotations          |
