@@ -41,6 +41,7 @@ belong; do not invent new top-level packages.
 | `core.db`        | MongoDB client and collection names (`MongoDBClient`, `COLLECTIONS`) |
 | `core.throttle`  | CPU/network throttling via CDP (profiles, options, `ConfigManager`) |
 | `core.utils`     | Cross-cutting helpers (`Configuration`, `AllureUtils`, `TestListener`, `AllureParams`, screenshots) |
+| `api.endpoints.<feature>` | Endpoint Object Model classes (`XxxEndpoint`)      |
 | `data.DTO`       | Data-transfer objects (Lombok models)                              |
 | `data.provider`  | TestNG `@DataProvider` factories                                   |
 | `data.variables` | Static reusable test values (random/fixed)                         |
@@ -65,7 +66,6 @@ belong; do not invent new top-level packages.
 | Package                | Responsibility                                    |
 |------------------------|---------------------------------------------------|
 | `api.base`             | `BaseAPIClient`, request filters                  |
-| `api.endpoints.<feature>` | Endpoint Object Model classes (`XxxEndpoint`)  |
 | `api.tests.<feature>`  | API test classes, grouped by feature then action  |
 | `selenium.tests.<feature>` | UI test classes (`TC###_Feature_...`)        |
 
@@ -207,8 +207,9 @@ public enum BRAND {
   requests inline with `given()` in a test.
 
 #### Endpoint Object Model (EOM)
-- Endpoints live in `src/test/java/api/endpoints/<feature>/` as `XxxEndpoint`
-  classes extending `api.endpoints.base.Endpoint`.
+- Endpoints live in `src/main/java/api/endpoints/<feature>/` as `XxxEndpoint`
+  classes extending `api.endpoints.base.Endpoint`. They are framework logic —
+  test cases in `src/test` never build requests, they only call endpoints.
 - Each endpoint owns its HTTP method, path, request building, and response
   schema; it attaches the schema to Allure and validates the response body
   against it, returning the raw RestAssured `Response`.
