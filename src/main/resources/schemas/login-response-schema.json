@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "required": ["responseCode", "message"],
+  "properties": {
+    "responseCode": {
+      "type": "integer",
+      "enum": [200, 400, 404, 405, 201, 500]
+    },
+    "message": {
+      "type": "string"
+    }
+  }
+}

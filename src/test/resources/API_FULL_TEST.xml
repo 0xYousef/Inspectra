@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="API Full Test Suite" parallel="tests" thread-count="3">
+    <listeners>
+        <listener class-name="core.utils.TestListener"></listener>
+    </listeners>
+    <test name="API Tests">
+        <packages>
+            <package name="api.tests"/>
+        </packages>
+    </test>
+</suite>

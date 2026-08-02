@@ -1,0 +1,171 @@
+Overview of Layered Testing Framework
+Enhancing Testing Processes Across Application Layers
+Layered Testing
+Framework Overview
+The Layered Testing
+Framework improves
+testing efficiency by
+addressing various
+application layers,
+ensuring comprehensive
+coverage.
+ii
+Focus on Multiple
+Testing Layers
+This framework includes
+distinct layers such as
+Data, Core, API, and Ulf
+enhancing reliability and
+accuracy in testing
+processes.
+34
+Se
+Improvement in
+Testing Efficiency
+By integrating multiple
+layers, the framework
+optimizes the testing
+process, reducing time
+and resource
+consumption while
+increasing quality
+assurance.
+Comprehensive
+Coverage and
+Reliability
+Each layer targets specific
+testing needs, ensuring a
+thorough examination of
+the application, leading to
+more reliable software
+releases.
+Enhanced Quality
+Assurance
+The structured approach
+of the framework leads to
+improved quality
+assurance, addressing
+potential issues at
+different levels of the
+application.
+
+Dynamic Data Layer for Testing
+Utilizing MongoDB and JavaFaker for Efficient Data Management
+4)
+Purpose of Data Layer
+The Data Layer's purpose
+is to provide test data
+dynamically for effective
+testing scenarios.
+Key Tools Utilized
+The primary tools involved
+include MongoDB for
+database connectivity
+and JavaFaker for
+generating synthetic test
+data.
+Functionality Overview
+The functionality
+encompasses supplying
+data via Data Providers for
+both API and Ul testing to
+enhance test coverage.
+Data Reusability
+The Data Layer ensures
+reusability by validating
+pre-generated data
+before it is utilized in
+testing environments.
+Support for Testing
+Types
+By providing test data
+dynamically, the Data
+Layer supports various
+testing types, ensuring
+comprehensive test
+scenarios.
+Core Layer of Testing Framework
+Understanding the core components of a layered testing framework for web applications.
+Purpose of Core Layer
+The Core Layer is essential for
+managing test sessions and
+maintaining a shared state during
+testing activities.
+Session Caching Feature
+The Session Caching feature
+tracks products that are added
+during tests, providing support for
+both Ul and API tests.
+Integration with TestNG
+The TestListener integrates
+seamlessly with TestNG, allowing
+for comprehensive execution
+monitoring of tests.
+Reusability of Components
+Shared components like product
+lists are accessible across both Ul
+and API layers, promoting
+efficiency in testing.
+API Testing Layer Overview
+Exploring tools, validation, and CI/CD integration for APIs
+Tools: RestAssured + TestNG
+Utilizing RestAssured for API testing alongside TestNG for test execution and management.
+JSON Schema Validation
+JSON Schema Validation ensures that API responses adhere to expected data structures, enhancing reliability.
+Dynamic Data Integration
+Incorporates dynamic data directly from the Data Layer, ensuring tests are relevant and accurate.
+CI/CD Ready
+Tests are organized into TestNG suites, facilitating seamless integration into CI/CD pipelines for automated testing.
+
+Optimizing UI Testing Framework
+Exploring the layers and tools for effective web application testing
+UI Testing Tools Overview
+Utilizing Selenium alongside Web Scraping techniques to facilitate pre-test loading and enhance testing efficiency.
+Page Object Model (POM)
+Employing POM to isolate shared components (e.g., headers, footers) into separate classes, ensuring maintainability and reducing code
+duplication.
+Test Environment Initialization
+Implementing web scraping methods to initialize test environments prior to executing tests, ensuring all necessary data is pre-loaded.
+Maintainability in Testing
+Promoting maintainability through structured design by minimizing code duplication and enhancing readability in tests.
+Effective Reporting
+and Logging
+Enhancing Debugging and Test
+Reporting in Development
+Detailed step-by-step logs
+Logging provides a thorough record of
+actions taken during testing, aiding in
+debugging processes.
+Allure Report for summaries
+Allure Report creates visual summaries of
+test executions, allowing for quick insights
+into testing results.
+Effective CI/CD
+Integration
+Strategies
+Exploring modular test suites and
+scalability in CI/CD frameworks
+Modular TestNG Suites
+Modular TestNG test suites allow for
+selective execution of tests, such as smoke
+or regression tests, enhancing efficiency
+during the testing process.
+Automated Pipeline Runs
+The framework supports automated runs in
+CI/CD pipelines, ensuring that tests are
+executed consistently and rapidly,
+contributing to a robust deployment process.
+Key Achievements in Testing Framework
+Highlighting significant advancements in layered testing for web applications
+End-to-End Coverage
+Achieved comprehensive testing across Data, API, and Ul layers
+utilizing a shared state within the Core Layer.
+Validation Rigor
+Established JSON schema checks for APIs and employed dynamic
+data fuzzing techniques to ensure robust validation processes.
+Maintainability
+Implemented Page Object Model (POM) design principles alongside
+reusable data and components to enhance system maintainability.
+Professional Reporting
+Utilized Allure to generate detailed reports that provide actionable
+insights into testing performance and outcomes.
